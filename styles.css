@@ -1,0 +1,26 @@
+#game-map {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    /* 10 columns */
+    grid-template-rows: repeat(10, 40px);
+    /* 10 rows */
+    gap: 2px;
+}
+
+.map-cell {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.character-cell {
+    background-color: lightblue;
+}
+
+.monster-cell {
+    background-color: lightcoral;
+}
