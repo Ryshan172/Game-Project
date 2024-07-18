@@ -1,34 +1,15 @@
-// game.js
+import { gameState } from './gamestate.js';
 
-// Character class
-class Character {
-    constructor(id, name, skill) {
-        this.id = id;
-        this.name = name;
-        this.skill = skill;
-        this.position = { x: 0, y: 0 };
-        this.items = [];
-    }
-}
-
-// Game state
-const gameState = {
-    characters: [
-        new Character(1, 'Dan', 'Strength'),
-        new Character(2, 'Kai', 'Stealth'),
-        new Character(3, 'Rey', 'Intelligence'),
-        new Character(4, 'Yuvi', 'Charisma')
-    ],
-    monster: {
-        position: { x: 5, y: 5 }
-    },
-    currentPlayer: 0
-};
-
+// Function to update the UI
 // Function to update the UI
 function updateUI() {
     const character = gameState.characters[gameState.currentPlayer];
     document.getElementById('character-name').innerText = character.name;
+
+    // Display the character's image
+    const characterImage = document.getElementById('character-image');
+    characterImage.src = character.image;
+    characterImage.alt = character.name;
 
     // Log the current game state to the console
     console.log("Current game state:", gameState);
@@ -65,6 +46,7 @@ function updateUI() {
     // Render the map
     renderMap();
 }
+
 
 // Function to handle movement
 function moveCharacter(direction) {
