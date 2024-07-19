@@ -1,6 +1,6 @@
 import { gameState } from './gamestate.js';
+import { encounters, manageCutscenes } from './encounters.js';
 
-// Function to update the UI
 // Function to update the UI
 function updateUI() {
     const character = gameState.characters[gameState.currentPlayer];
@@ -20,7 +20,6 @@ function updateUI() {
         <p>Current Player: ${character.name}</p>
         <p>Position: (${character.position.x}, ${character.position.y})</p>
         <p>Items: ${character.items.join(', ')}</p>
-        <p>Monster Position: (${gameState.monster.position.x}, ${gameState.monster.position.y})</p>
     `;
 
     // Clear previous options
@@ -33,7 +32,7 @@ function updateUI() {
         button.innerText = direction;
         button.onclick = () => {
             moveCharacter(direction);
-            moveMonster();
+            checkEncounter(character);
         };
         gameOptions.appendChild(button);
     });
@@ -46,7 +45,6 @@ function updateUI() {
     // Render the map
     renderMap();
 }
-
 
 // Function to handle movement
 function moveCharacter(direction) {
@@ -111,37 +109,36 @@ function renderMap() {
                 }
             });
 
-            // Check if the cell contains the monster
-            if (gameState.monster.position.x === x && gameState.monster.position.y === y) {
-                cell.classList.add('monster-cell');
-                cell.innerText = 'M'; // Display "M" for the monster
-            }
-
             mapContainer.appendChild(cell);
         }
     }
 }
 
-// Function to move the monster
-function moveMonster() {
-    const directions = ['up', 'down', 'left', 'right'];
-    const direction = directions[Math.floor(Math.random() * directions.length)];
+// Function to check for and handle encounters
+function checkEncounter(character) {
+    const encounter = encounters.find(encounter => 
+        encounter.location.x === character.position.x && 
+        encounter.location.y === character.position.y
+    );
 
-    switch(direction) {
-        case 'up':
-            gameState.monster.position.y = Math.max(gameState.monster.position.y - 1, 0);
-            break;
-        case 'down':
-            gameState.monster.position.y = Math.min(gameState.monster.position.y + 1, 9);
-            break;
-        case 'left':
-            gameState.monster.position.x = Math.max(gameState.monster.position.x - 1, 0);
-            break;
-        case 'right':
-            gameState.monster.position.x = Math.min(gameState.monster.position.x + 1, 9);
-            break;
+    if (encounter) {
+        handleEncounter(character, encounter);
     }
-    updateUI();
+}
+
+// Function to handle encounters
+function handleEncounter(character, encounter) {
+    console.log(`Encounter: ${character.name} encounters ${encounter.name}`);
+    // Display encounter details or cutscene based on type
+    showCutscene(character, encounter);
+}
+
+// Function to show a cutscene
+function showCutscene(character, encounter) {
+    const cutsceneImage = document.createElement('img');
+    cutsceneImage.src = manageCutscenes(encounter, character);
+    cutsceneImage.alt = `${character.name} vs ${encounter.name}`;
+    document.body.appendChild(cutsceneImage);
 }
 
 // Initialize the game
