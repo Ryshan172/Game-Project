@@ -177,3 +177,49 @@ export function handleItemInteraction(item, characterSkill) {
     }
 
 }
+
+// Example function to get choices based on encounter
+export function getChoicesForEncounter(encounter) {
+    // Define choices based on encounter type or other logic
+    // Return an array of choice objects with text and action properties
+
+    switch(encounter.name) {
+        case 'Tracy':
+            return [
+                { text: 'Give item', action: 'item' },
+                { text: 'Talk', action: 'talk' }
+            ];
+        case 'Winslow':
+            return [
+                { text: 'Give item', action: 'item' },
+                { text: 'Talk', action: 'talk' }
+            ];
+        case 'Werewolf':
+            return [
+                { text: 'fight', action: 'fight' },
+                { text: 'Run away', action: 'run' }
+            ];
+        case 'Killer':
+            return [
+                { text: 'fight', action: 'fight' },
+                { text: 'Run away', action: 'run' }
+            ];
+        case 'Horse Guy':
+            return [
+                { text: 'fight', action: 'fight' },
+                { text: 'Run away', action: 'run' }
+            ];
+        case 'Vampire':
+            return [
+                { text: 'fight', action: 'fight' },
+                { text: 'Run away', action: 'run' }
+            ];
+
+    }
+
+    return [
+        { text: 'Investigate', action: 'investigate' },
+        { text: 'Pick up', action: 'take' },
+        { text: 'Leave', action: 'leave' }
+    ];
+}

@@ -1,5 +1,5 @@
 import { gameState } from './gamestate.js';
-import { encounters, manageCutscenes } from './encounters.js';
+import { encounters, manageCutscenes, getChoicesForEncounter } from './encounters.js';
 
 // Function to update the UI
 function updateUI() {
@@ -64,6 +64,7 @@ function moveCharacter(direction) {
             break;
     }
     updateUI();
+    renderMap();
 }
 
 // Function to handle choices
@@ -130,6 +131,8 @@ function checkEncounter(character) {
 
     if (encounter) {
         handleEncounter(character, encounter);
+    } else {
+        document.getElementById('encounter-overlay').style.display = 'none'; // Hide overlay if no encounter
     }
 }
 
@@ -142,10 +145,38 @@ function handleEncounter(character, encounter) {
 
 // Function to show a cutscene
 function showCutscene(character, encounter) {
-    const cutsceneImage = document.createElement('img');
+    const encounterOverlay = document.getElementById('encounter-overlay');
+    const cutsceneImage = document.getElementById('cutscene-image');
+    const cutsceneMessage = document.getElementById('cutscene-message');
+    const cutsceneChoices = document.getElementById('cutscene-choices');
+
     cutsceneImage.src = manageCutscenes(encounter, character);
     cutsceneImage.alt = `${character.name} vs ${encounter.name}`;
-    document.body.appendChild(cutsceneImage);
+
+    // Set the message
+    cutsceneMessage.innerHTML = `You have encountered ${encounter.name}!`;
+
+    // Clear previous choices and add new ones
+    cutsceneChoices.innerHTML = '';
+    const choices = getChoicesForEncounter(encounter); // Implement this function to return choices based on the encounter
+
+    choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.innerText = choice.text;
+        button.onclick = () => handleChoice(choice.action); // Implement this function to handle choice actions
+        cutsceneChoices.appendChild(button);
+    });
+
+    encounterOverlay.style.display = 'block'; // Show the encounter overlay
+}
+
+
+// Example function to handle choice actions
+function handleChoice(action) {
+    // Implement the logic to handle the choice
+    console.log(`Choice selected: ${action}`);
+    // Hide the overlay after handling choice or perform other actions
+    document.getElementById('encounter-overlay').style.display = 'none';
 }
 
 // Initialize the game

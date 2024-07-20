@@ -10,19 +10,34 @@
 
 <body>
     <div id="game-container">
-        <div id="game-map">
-            <!-- This is where the map grid will be rendered -->
+        <div id="sidebar">
+            <img id="character-image" src="" alt="Character Image">
+            <h1 id="character-name">Character Name</h1>
+            <div id="game-state">
+                <!-- This is where the game state will be displayed -->
+            </div>
+            <div id="character-switch">
+                <!-- Buttons for switching characters will go here -->
+            </div>
+            <div id="game-options">
+                <!-- Buttons for choices will go here -->
+            </div>
         </div>
-        <div id="game-options">
-            <!-- Buttons for choices will go here -->
-        </div>
-        <div id="game-state">
-            <!-- This is where the game state will be displayed -->
-        </div>
-        <img id="character-image" src="" alt="Character Image">
-        <h1 id="character-name">Character Name</h1>
-        <div id="character-switch">
-            <!-- Buttons for switching characters will go here -->
+        <div id="main-content">
+            <div id="game-map">
+                <!-- This is where the map grid will be rendered -->
+            </div>
+            <div id="encounter-overlay">
+                <div id="cutscene-container">
+                    <img id="cutscene-image" src="" alt="Cutscene Image">
+                    <div id="cutscene-message">
+                        <!-- This is where the encounter message will be displayed -->
+                    </div>
+                    <div id="cutscene-choices">
+                        <!-- This is where the choice buttons will be rendered -->
+                    </div>
+                </div>
+            </div>            
         </div>
     </div>
 

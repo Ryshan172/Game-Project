@@ -1,10 +1,35 @@
-/* styles.css */
+#game-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 20%;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-right: 1px solid #ccc;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    position: relative; /* Allows absolute positioning for overlay */
+}
 
 #game-map {
     display: grid;
     grid-template-columns: repeat(10, 40px); /* 10 columns */
     grid-template-rows: repeat(10, 40px);    /* 10 rows */
     gap: 2px;
+    margin-bottom: 20px;
 }
 
 .map-cell {
@@ -24,10 +49,17 @@
     background-color: lightblue;
 }
 
-#character-image {
-    width: 200px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Center the image */
+.character-icon {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover; /* Ensure the image covers the entire cell */
+}
+
+.encounter-cell {
+    position: relative; /* Ensure the encounter icon is positioned within the cell */
 }
 
 .encounter-icon {
@@ -39,11 +71,71 @@
     object-fit: cover; /* Ensure the image covers the entire cell */
 }
 
-.character-icon {
+#character-image {
+    width: 100px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px;
+}
+
+#game-options, #game-state {
+    margin-top: 20px;
     width: 100%;
-    height: 100%;
-    position: absolute;
+    text-align: center;
+}
+
+#encounter-overlay {
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #fff;
+    z-index: 10; /* Ensure it appears above the map */
+    display: none; /* Hide by default */
+    position: absolute; /* Position it within #main-content */
     top: 0;
     left: 0;
-    object-fit: cover; /* Ensure the image covers the entire cell */
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Allow scrolling if necessary */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+#cutscene-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#cutscene-image {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+#cutscene-message {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#cutscene-choices {
+    margin-top: 20px;
+}
+
+#cutscene-choices button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
 }
