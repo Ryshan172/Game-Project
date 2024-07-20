@@ -196,17 +196,17 @@ export function getChoicesForEncounter(encounter) {
             ];
         case 'Werewolf':
             return [
-                { text: 'fight', action: 'fight' },
+                { text: 'Fight', action: 'fight' },
                 { text: 'Run away', action: 'run' }
             ];
         case 'Killer':
             return [
-                { text: 'fight', action: 'fight' },
+                { text: 'Fight', action: 'fight' },
                 { text: 'Run away', action: 'run' }
             ];
         case 'Horse Guy':
             return [
-                { text: 'fight', action: 'fight' },
+                { text: 'Fight', action: 'fight' },
                 { text: 'Run away', action: 'run' }
             ];
         case 'Vampire':

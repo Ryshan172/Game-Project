@@ -1,5 +1,7 @@
 import { gameState } from './gamestate.js';
 import { encounters, manageCutscenes, getChoicesForEncounter } from './encounters.js';
+import {addItemToCharacter} from './interactions.js'
+import {showStory} from './storyboard.js'
 
 // Function to update the UI
 function updateUI() {
@@ -17,9 +19,7 @@ function updateUI() {
     // Display the current game state on the screen
     const gameStateDisplay = document.getElementById('game-state');
     gameStateDisplay.innerHTML = `
-        <p>Current Player: ${character.name}</p>
         <p>Position: (${character.position.x}, ${character.position.y})</p>
-        <p>Items: ${character.items.join(', ')}</p>
     `;
 
     // Clear previous options
@@ -35,6 +35,16 @@ function updateUI() {
             checkEncounter(character);
         };
         gameOptions.appendChild(button);
+    });
+
+    // Display items
+    const inventoryContainer = document.getElementById('inventory');
+    inventoryContainer.innerHTML = '';
+    character.items.slice(0, 4).forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'inventory-item';
+        itemElement.innerHTML = `<img src="${item.icon}" alt="${item.name}" class="inventory-icon"> ${item.name}`;
+        inventoryContainer.appendChild(itemElement);
     });
 
     // Add additional options based on character's position and items
@@ -179,10 +189,18 @@ function handleChoice(action) {
     document.getElementById('encounter-overlay').style.display = 'none';
 }
 
+function setupInitialItems() {
+    const character = gameState.characters[0]; // Assuming you want to add items to the first character
+    addItemToCharacter(character, { name: 'Flashlight', icon: './images/icons/note.png' });
+    addItemToCharacter(character, { name: 'Map', icon: './images/icons/shotgun.png' })
+}
+
 // Initialize the game
 function initGame() {
+    setupInitialItems();
     updateUI();
 }
 
 // Start the game
 initGame();
+showStory();
