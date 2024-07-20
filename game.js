@@ -101,11 +101,18 @@ function renderMap() {
             const cell = document.createElement('div');
             cell.className = 'map-cell';
             
-            // Check if the cell contains a character
             gameState.characters.forEach(character => {
                 if (character.position.x === x && character.position.y === y) {
                     cell.classList.add('character-cell');
-                    cell.innerText = character.name.charAt(0); // Display the first letter of the character's name
+                    cell.innerHTML += `<img src="${character.image}" alt="${character.name}" class="character-icon">`;
+                }
+            });
+
+            // Check if the cell contains an encounter
+            encounters.forEach(encounter => {
+                if (encounter.location.x === x && encounter.location.y === y) {
+                    cell.classList.add('encounter-cell');
+                    cell.innerHTML += `<img src="${encounter.iconPath}" alt="${encounter.name}" class="encounter-icon">`;
                 }
             });
 
